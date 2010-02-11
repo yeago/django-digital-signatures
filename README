@@ -1,0 +1,5 @@
+This is a django application which provides some models and helpers for maintaining
+digital signatures in a generic way.
+
+Documents can be created and people can add a Signature to them. Later, you may conduct
+querying to make sure the necessary signatures have been provided.
