@@ -3,3 +3,11 @@ digital signatures in a generic way.
 
 Documents can be created and people can add a Signature to them. Later, you may conduct
 querying to make sure the necessary signatures have been provided.
+
+TODO:
+
+Signature form
+
+Template tag which accepts an object and displays a signature form
+
+Template tag which checks whether a particular object has been signed, and by who

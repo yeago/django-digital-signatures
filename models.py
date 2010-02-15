@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.contenttypes.models import generic
+from django.contrib.contenttypes import generic
 
 """
 The Document model can generically relate to a model for querying.
