@@ -7,7 +7,6 @@ def apply_signature(request,return_url="/",success_msg="Digital signature has be
 	if form.is_valid():
 		form.save()
 		request.user.message_set.create(message=success_msg)
-
 	else:
 		request.user.message_set.create(message="Signature not applied.")
 	return redirect(request.GET.get("return_url","/"))
