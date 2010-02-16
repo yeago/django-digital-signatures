@@ -26,9 +26,13 @@ Then link your Document to this object.
 class Document(models.Model):
 	title = models.CharField(max_length=55)
 	date_created = models.DateTimeField(editable=False)
-	content_type = models.ForeignKey('contenttypes.ContentType',null=True,blank=True)
-	object_pk = models.IntegerField(null=True,blank=True)
+	content_type = models.ForeignKey('contenttypes.ContentType',null=True,blank=True,editable=False)
+	object_pk = models.IntegerField(null=True,blank=True,editable=False)
+	content_object = generic.GenericForeignKey(fk_field="object_pk")
 	author = models.ForeignKey('auth.User',null=True,blank=True)
+	def __unicode__(self):
+		return self.title
+
 	def save(self,*args,**kwargs):
 		if not self.date_created:
 			self.date_created = datetime.datetime.now()
