@@ -16,7 +16,7 @@ register = template.Library()
 class SignatoryListNode(BaseSignatoryNode):
 	def render(self, context):
 		ctype, pk = self.get_target_ctype_pk(context)
-		context[self.as_varname] = smodels.Document.objects.filter(content_type=ctype,object_pk=pk)
+		context[self.as_varname] = smodels.Signatory.objects.filter(document__content_type=ctype,document__object_pk=pk)
 		return ""
 
 class SignatoryFormNode(BaseSignatoryNode):

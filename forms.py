@@ -27,10 +27,13 @@ class SignatureForm(forms.ModelForm):
 
 	def save(self,*args,**kwargs):
 		record = super(SignatureForm,self).save(commit=False)
-		if not record.document:
-			record.document = smodels.Document.objects.get_or_create(title=self.cleaned_data['title'],\
-					content_type=self.cleaned_data['content_type'],\
-					object_pk=self.cleaned_data['object_pk'])[0]
+		record.user = self._user
+		try:
+			record.document
+		except smodels.Document.DoesNotExist:
+			ct = ContentType.objects.get(pk=self.cleaned_data['content_type'])
+			record.document = smodels.Document.objects.get_or_create(title=self.cleaned_data['document_title'],\
+					content_type=ct,object_pk=self.cleaned_data['object_pk'])[0]
 
 		record.save()
 

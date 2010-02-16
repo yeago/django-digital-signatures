@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.contrib.contenttypes import generic
 
@@ -28,6 +29,10 @@ class Document(models.Model):
 	content_type = models.ForeignKey('contenttypes.ContentType',null=True,blank=True)
 	object_pk = models.IntegerField(null=True,blank=True)
 	author = models.ForeignKey('auth.User',null=True,blank=True)
+	def save(self,*args,**kwargs):
+		if not self.date_created:
+			self.date_created = datetime.datetime.now()
+		super(Document,self).save(*args,**kwargs)
 
 class Signatory(models.Model):
 	document = models.ForeignKey('Document')
@@ -36,3 +41,7 @@ class Signatory(models.Model):
 	auth_token = models.CharField(max_length=255) # last 4 of social, pet's name, etc.
 	user = models.ForeignKey('auth.User',blank=True,null=True)
 	date_signed = models.DateTimeField(editable=False)
+	def save(self,*args,**kwargs):
+		if not self.date_signed:
+			self.date_signed = datetime.datetime.now()
+		super(Signatory,self).save(*args,**kwargs)
