@@ -2,7 +2,7 @@ from django_digital_signature.forms import SignatureForm
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 
-from django.messages import messages
+from django.contrib.messages import messages
 
 def apply_signature(request,return_url="/",success_msg="Digital signature has been applied"):
 	form = SignatureForm(request.POST or None,user=request.user)
