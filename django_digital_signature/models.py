@@ -1,6 +1,6 @@
 import datetime
 from django.db import models
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 """
 The Document model can generically relate to a model for querying.
@@ -28,7 +28,7 @@ class Document(models.Model):
 	date_created = models.DateTimeField(editable=False)
 	content_type = models.ForeignKey('contenttypes.ContentType',null=True,blank=True,editable=False)
 	object_pk = models.IntegerField(null=True,blank=True,editable=False)
-	content_object = generic.GenericForeignKey(fk_field="object_pk")
+	content_object = GenericForeignKey(fk_field="object_pk")
 	author = models.ForeignKey('auth.User',null=True,blank=True)
 	def __unicode__(self):
 		return self.title
