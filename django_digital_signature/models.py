@@ -14,38 +14,42 @@ create a placeholder object which represents this date-range, and use it.
 
 eg:
 
-	class TimeclockRange(models.Model):
-		start_date = ...
-		end_date = ...
-		user = ...
+    class TimeclockRange(models.Model):
+        start_date = ...
+        end_date = ...
+        user = ...
 
 Then link your Document to this object.
 
 """
 
-class Document(models.Model):
-	title = models.CharField(max_length=55)
-	date_created = models.DateTimeField(editable=False)
-	content_type = models.ForeignKey('contenttypes.ContentType',null=True,blank=True,editable=False)
-	object_pk = models.IntegerField(null=True,blank=True,editable=False)
-	content_object = GenericForeignKey(fk_field="object_pk")
-	author = models.ForeignKey('auth.User',null=True,blank=True)
-	def __unicode__(self):
-		return self.title
 
-	def save(self,*args,**kwargs):
-		if not self.date_created:
-			self.date_created = datetime.datetime.now()
-		super(Document,self).save(*args,**kwargs)
+class Document(models.Model):
+    title = models.CharField(max_length=55)
+    date_created = models.DateTimeField(editable=False)
+    content_type = models.ForeignKey('contenttypes.ContentType', null=True, blank=True, editable=False)
+    object_pk = models.IntegerField(null=True, blank=True, editable=False)
+    content_object = GenericForeignKey(fk_field="object_pk")
+    author = models.ForeignKey('auth.User', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.date_created:
+            self.date_created = datetime.datetime.now()
+        super(Document, self).save(*args, **kwargs)
+
 
 class Signatory(models.Model):
-	document = models.ForeignKey('Document')
-	first_name = models.CharField(max_length=30)
-	last_name = models.CharField(max_length=30)
-	auth_token = models.CharField(max_length=255) # last 4 of social, pet's name, etc.
-	user = models.ForeignKey('auth.User',blank=True,null=True)
-	date_signed = models.DateTimeField(editable=False)
-	def save(self,*args,**kwargs):
-		if not self.date_signed:
-			self.date_signed = datetime.datetime.now()
-		super(Signatory,self).save(*args,**kwargs)
+    document = models.ForeignKey('Document')
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    auth_token = models.CharField(max_length=255) # last 4 of social, pet's name, etc.
+    user = models.ForeignKey('auth.User', blank=True, null=True)
+    date_signed = models.DateTimeField(editable=False)
+
+    def save(self, *args, **kwargs):
+        if not self.date_signed:
+            self.date_signed = datetime.datetime.now()
+        super(Signatory, self).save(*args, **kwargs)
