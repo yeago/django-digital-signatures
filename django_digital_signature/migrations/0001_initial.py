@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=55)),
                 ('date_created', models.DateTimeField(editable=False)),
                 ('object_pk', models.IntegerField(null=True, editable=False, blank=True)),
-                ('author', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
-                ('content_type', models.ForeignKey(blank=True, editable=False, to='contenttypes.ContentType', null=True)),
+                ('author', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.deletion.CASCADE)),
+                ('content_type', models.ForeignKey(blank=True, editable=False, to='contenttypes.ContentType', null=True, on_delete=models.deletion.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -32,8 +32,8 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(max_length=30)),
                 ('auth_token', models.CharField(max_length=255)),
                 ('date_signed', models.DateTimeField(editable=False)),
-                ('document', models.ForeignKey(to='django_digital_signature.Document')),
-                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('document', models.ForeignKey(to='django_digital_signature.Document', on_delete=models.deletion.CASCADE)),
+                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=models.deletion.CASCADE)),
             ],
         ),
     ]

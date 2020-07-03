@@ -27,10 +27,11 @@ Then link your Document to this object.
 class Document(models.Model):
     title = models.CharField(max_length=55)
     date_created = models.DateTimeField(editable=False)
-    content_type = models.ForeignKey('contenttypes.ContentType', null=True, blank=True, editable=False)
+    content_type = models.ForeignKey('contenttypes.ContentType', null=True, blank=True, editable=False,
+                                     on_delete=models.deletion.CASCADE)
     object_pk = models.IntegerField(null=True, blank=True, editable=False)
     content_object = GenericForeignKey(fk_field="object_pk")
-    author = models.ForeignKey('auth.User', null=True, blank=True)
+    author = models.ForeignKey('auth.User', null=True, blank=True, on_delete=models.deletion.CASCADE)
 
     def __unicode__(self):
         return self.title
@@ -46,7 +47,7 @@ class Signatory(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     auth_token = models.CharField(max_length=255) # last 4 of social, pet's name, etc.
-    user = models.ForeignKey('auth.User', blank=True, null=True)
+    user = models.ForeignKey('auth.User', blank=True, null=True, on_delete=models.deletion.CASCADE)
     date_signed = models.DateTimeField(editable=False)
 
     def save(self, *args, **kwargs):
