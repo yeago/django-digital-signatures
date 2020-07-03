@@ -43,7 +43,7 @@ class Document(models.Model):
 
 
 class Signatory(models.Model):
-    document = models.ForeignKey('Document')
+    document = models.ForeignKey('Document', on_delete=models.deletion.CASCADE)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     auth_token = models.CharField(max_length=255) # last 4 of social, pet's name, etc.
