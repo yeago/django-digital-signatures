@@ -1,6 +1,6 @@
 from django_digital_signature.forms import SignatureForm
 from django.shortcuts import redirect
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from django.contrib import messages
 
