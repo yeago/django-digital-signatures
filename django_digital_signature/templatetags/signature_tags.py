@@ -9,7 +9,7 @@ that I'm using it here. Its so abstract that it really transcends django.contrib
 but that's the only place it exists, so I'm stealing it here.
 """
 
-from django.contrib.comments.templatetags.comments import BaseCommentNode as BaseSignatoryNode
+from django_comments.templatetags.comments import BaseCommentNode as BaseSignatoryNode
 
 register = template.Library()
 
