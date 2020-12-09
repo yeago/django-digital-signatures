@@ -33,7 +33,7 @@ class Document(models.Model):
     content_object = GenericForeignKey(fk_field="object_pk")
     author = models.ForeignKey('auth.User', null=True, blank=True, on_delete=models.deletion.CASCADE)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):

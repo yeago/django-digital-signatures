@@ -39,6 +39,7 @@ class SignatureForm(forms.ModelForm):
                 content_type=ct, object_pk=self.cleaned_data['object_pk'])[0]
 
         record.save()
+        return record
 
     class Meta:
         model = smodels.Signatory
